@@ -1,5 +1,6 @@
 Use the following passages from the database to answer the user's question. Prioritize these passages over the chat history.
 
+If you find a Link in the source you must provide it in the answer.
 If you don't know the answer, say you don't know—don't fabricate information.
 
 After your response, leave a blank line, then list your sources in the format: SOURCES: [comma-separated source names].
