@@ -9,6 +9,7 @@ from flask import render_template, stream_with_context, current_app
 import json
 import os
 
+LM_TEMPERATURE = float(os.getenv('LM_TEMPERATURE', 0))
 INDEX = os.getenv("ES_INDEX", "workplace-app-docs")
 INDEX_CONTENT_FIELD = os.getenv("ES_INDEX_CONTENT_FIELD", "workplace-app-docs")
 INDEX_CHAT_HISTORY = os.getenv(
@@ -18,7 +19,6 @@ ELSER_MODEL=os.getenv('ELSER_MODEL', '.elser_model_2_linux-x86_64')
 SESSION_ID_TAG = "[SESSION_ID]"
 SOURCE_TAG = "[SOURCE]"
 DONE_TAG = "[DONE]"
-
 def build_query(query):
     return {
         "retriever": {
@@ -57,7 +57,7 @@ def ask_question(question, session_id):
             question=question,
             chat_history=chat_history.messages,
         )
-        condensed_question = get_llm().invoke(condense_question_prompt).content
+        condensed_question = get_llm(LM_TEMPERATURE).invoke(condense_question_prompt).content
     else:
         condensed_question = question
 
@@ -81,7 +81,7 @@ def ask_question(question, session_id):
     current_app.logger.debug(f"RAG prompt: {qa_prompt}")
 
     answer = ""
-    for chunk in get_llm().stream(qa_prompt):
+    for chunk in get_llm(LM_TEMPERATURE).stream(qa_prompt):
         content = chunk.content.replace(
             "\n", " "
         )  # the stream can get messed up with newlines

@@ -38,6 +38,7 @@ ELSER_MODEL=".elser_model_2_linux-x86_64"
 # LM-Studio details
 LLM_TYPE=lmstudio
 LM_BASE_URL=http://your-lm-studio.local:1234/v1
+LM_TEMPERATURE=0.5
 ```
 
 Replace the placeholder values with your actual Elasticsearch and LM Studio details.
