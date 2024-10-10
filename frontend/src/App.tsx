@@ -48,7 +48,8 @@ const App = () => {
 
   const suggestedQueries = [
     'When is the Elastic AI event?',
-    'When is my Birthday?'
+    'When is my Birthday?',
+    'What is the M0008 monitor?'
   ]
 
   return (
