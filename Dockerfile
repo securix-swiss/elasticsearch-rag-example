@@ -1,6 +1,6 @@
 # app/Dockerfile
 
-FROM node:16-alpine as build-step
+FROM node:18-alpine as build-step
 WORKDIR /app
 ENV PATH /node_modules/.bin:$PATH
 COPY frontend ./frontend

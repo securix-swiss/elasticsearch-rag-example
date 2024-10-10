@@ -97,8 +97,9 @@ def ask_question(question, session_id):
 
     answer = ""
     for chunk in get_llm(LM_TEMPERATURE).stream(qa_prompt):
+        content = chunk.content
         content = chunk.content.replace(
-            "\n", " "
+            "\n", "CMD__NEWLINE__CHAT"
         )  # the stream can get messed up with newlines
         yield f"data: {content}\n\n"
         answer += chunk.content

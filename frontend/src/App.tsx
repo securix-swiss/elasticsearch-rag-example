@@ -49,7 +49,8 @@ const App = () => {
   const suggestedQueries = [
     'When is the Elastic AI event?',
     'When is my Birthday?',
-    'What is the M0008 monitor?'
+    'What is the M0008 monitor?',
+    'How can I use my password from ENV variable in ansible?'
   ]
 
   return (
