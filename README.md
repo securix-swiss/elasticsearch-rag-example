@@ -34,6 +34,9 @@ ES_INDEX=<index-holding-data-for-rag>
 ES_INDEX_CONTENT_FIELD=<field-containing-data>
 ES_INDEX_CHAT_HISTORY=<index-for-chat-history>
 ELSER_MODEL=".elser_model_2_linux-x86_64"
+SPARSE_VECTOR_FIELDS="ml.inference.body_expanded.predicted_value"
+ES_QUERY_SIZE=3
+
 
 # LM-Studio details
 LLM_TYPE=lmstudio

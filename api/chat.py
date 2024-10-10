@@ -16,23 +16,38 @@ INDEX_CHAT_HISTORY = os.getenv(
     "ES_INDEX_CHAT_HISTORY", "workplace-app-docs-chat-history"
 )
 ELSER_MODEL=os.getenv('ELSER_MODEL', '.elser_model_2_linux-x86_64')
+SPARSE_VECTOR_FIELDS=os.getenv('SPARSE_VECTOR_FIELDS', 'ml.inference.body_expanded.predicted_value').split(',')
+ES_QUERY_SIZE=os.getenv('ES_QUERY_SIZE', 3)
+
 SESSION_ID_TAG = "[SESSION_ID]"
 SOURCE_TAG = "[SOURCE]"
 DONE_TAG = "[DONE]"
 def build_query(query):
-    return {
+    q = {
+        "size": ES_QUERY_SIZE,
         "retriever": {
             "standard": {
                 "query": {
-                    "sparse_vector": {
-                        "field": "ml.inference.body_expanded.predicted_value",
-                        "inference_id": ".elser_model_2_linux-x86_64",
-                        "query": query
+                    "dis_max": {
+                        "queries": []
                     }
                 }
             }
         }
     }
+
+    for field in SPARSE_VECTOR_FIELDS:
+        q['retriever']['standard']['query']['dis_max']['queries'].append(
+            {
+                "sparse_vector": {
+                    "field": field,
+                    "inference_id": ELSER_MODEL,
+                    "query": query
+                }
+            }
+        )
+
+    return q
 
 retriever = ElasticsearchRetriever(
     index_name=INDEX,

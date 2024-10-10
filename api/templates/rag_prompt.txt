@@ -18,6 +18,11 @@ SOURCES: Hitchhiker's Guide to the Galaxy
 Passages:
 {% for doc in docs %}
 ---
+TITILE: {{ doc.metadata['_source']['title'] }}
+AUTHOR: {{ doc.metadata['_source']['author'] }}
+URL: {{ doc.metadata['_source']['url'] }}
+
+CONTENT:
 {{ doc.page_content }}
 ---
 {% endfor %}
